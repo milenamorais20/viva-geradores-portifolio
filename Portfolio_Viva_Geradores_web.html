@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viva Geradores – Planos de Manutenção</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+
+/* ===================================================
+   VARIÁVEIS DE MARCA — edite aqui para mudar cores
+=================================================== */
+:root {
+  --bg:         #F0EFE8;
+  --green:      #4A7C2F;
+  --green-dark: #3A6424;
+  --navy:       #1B2A4A;
+  --white:      #FFFFFF;
+  --gray:       #888880;
+  --line:       #D8D6CE;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--navy); overflow-x:hidden; }
+
+/* ===================================================
+   NAVBAR FIXA
+=================================================== */
+.navbar {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  background: rgba(240,239,232,0.94);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  height: 60px; padding: 0 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.navbar .logo {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px; font-weight:900; color:var(--navy);
+  letter-spacing:.06em; text-transform:uppercase; text-decoration:none;
+}
+.navbar .logo span { color:var(--green); }
+.navbar nav { display:flex; gap:36px; list-style:none; }
+.navbar nav a {
+  font-size:11px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--gray);
+  text-decoration:none; transition:color .2s;
+}
+.navbar nav a:hover, .navbar nav a.active { color:var(--navy); }
+.navbar .nav-cta {
+  background:var(--green) !important; color:var(--white) !important;
+  padding:9px 22px; border-radius:50px; transition:background .2s !important;
+}
+.navbar .nav-cta:hover { background:var(--green-dark) !important; }
+
+/* ===================================================
+   SEÇÕES
+=================================================== */
+section {
+  min-height: 100vh; width:100%; background:var(--bg);
+  display:flex; flex-direction:column; justify-content:center;
+  padding-top:60px; position:relative; overflow:hidden;
+}
+
+/* ===================================================
+   ELEMENTOS REUTILIZÁVEIS
+=================================================== */
+.sec-label {
+  font-size:11px; font-weight:700; letter-spacing:.18em;
+  color:var(--gray); text-transform:uppercase; margin-bottom:14px;
+}
+.sec-title {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(52px,5.5vw,82px); font-weight:900;
+  text-transform:uppercase; line-height:.91; color:var(--navy); margin-bottom:24px;
+}
+.sec-title em { color:var(--green); font-style:normal; display:block; }
+
+.btn-green {
+  display:inline-block; background:var(--green); color:var(--white);
+  font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:17px 42px; border-radius:50px; text-decoration:none; cursor:pointer; border:none;
+  transition:background .2s, transform .15s;
+}
+.btn-green:hover { background:var(--green-dark); transform:translateY(-2px); }
+
+.pill {
+  display:inline-block; background:var(--green); color:var(--white);
+  font-size:12px; font-weight:700; letter-spacing:.15em;
+  padding:9px 24px; border-radius:50px; text-transform:uppercase; margin-bottom:28px;
+}
+
+/* ===================================================
+   SECAO 1 — CAPA
+=================================================== */
+#capa .inner {
+  max-width:1440px; margin:0 auto; padding:80px;
+  display:grid; grid-template-columns:1fr auto; gap:60px; align-items:center; width:100%;
+}
+#capa h1 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(72px,9vw,120px); font-weight:900;
+  line-height:.88; color:var(--navy); text-transform:uppercase; margin-bottom:32px;
+}
+#capa h1 em { color:var(--green); font-style:normal; display:block; }
+#capa .subtitle {
+  font-size:20px; font-weight:300; color:var(--navy);
+  max-width:520px; line-height:1.65; margin-bottom:44px;
+}
+#capa .cta-row { display:flex; align-items:center; gap:28px; flex-wrap:wrap; }
+#capa .cta-tag {
+  font-size:14px; color:var(--gray); font-weight:300;
+  font-style:italic; max-width:260px; line-height:1.5;
+}
+.logo-circle {
+  width:340px; height:340px; background:var(--white); border-radius:50%;
+  box-shadow:0 24px 64px rgba(27,42,74,.10);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;
+}
+.logo-circle .lv {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:120px; font-weight:900; color:var(--navy); line-height:1;
+}
+.logo-circle .lv span { color:var(--green); }
+.logo-circle .ln {
+  font-size:16px; font-weight:800; letter-spacing:.18em;
+  color:var(--navy); text-transform:uppercase;
+}
+
+/* ===================================================
+   SECAO 2 — QUEM SOMOS
+=================================================== */
+#quem-somos .inner {
+  max-width:1440px; margin:0 auto; padding:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; width:100%;
+}
+#quem-somos .qs-text {
+  font-size:18px; font-weight:300; line-height:1.75; color:var(--navy); margin-bottom:20px;
+}
+.mvv-grid { display:flex; flex-direction:column; gap:18px; }
+.mvv-card { background:var(--white); border-radius:20px; padding:28px 32px; box-shadow:0 4px 20px rgba(27,42,74,.06); }
+.mvv-card .mvv-tag {
+  display:inline-block; background:var(--green); color:var(--white);
+  font-size:10px; font-weight:700; letter-spacing:.16em;
+  padding:6px 16px; border-radius:50px; text-transform:uppercase; margin-bottom:12px;
+}
+.mvv-card p { font-size:15px; font-weight:400; line-height:1.6; color:var(--navy); }
+.mvv-card ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.mvv-card ul li {
+  font-size:14px; font-weight:400; color:var(--navy);
+  padding-left:18px; position:relative;
+}
+.mvv-card ul li::before {
+  content:'•'; position:absolute; left:0; color:var(--green); font-size:16px; line-height:1.4;
+}
+
+/* ===================================================
+   SECAO 3 — O PROBLEMA
+=================================================== */
+#problema .inner {
+  max-width:1440px; margin:0 auto; padding:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; width:100%;
+}
+#problema .prob-text {
+  font-size:17px; font-weight:300; line-height:1.75; color:var(--navy); max-width:460px; margin-top:24px;
+}
+.risk-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.risk-card {
+  background:var(--navy); border-radius:20px; padding:32px 28px;
+  transition:transform .2s;
+}
+.risk-card:hover { transform:translateY(-4px); }
+.risk-card.green { background:var(--green); }
+.risk-card .ri { font-size:34px; margin-bottom:14px; }
+.risk-card h4 {
+  font-size:13px; font-weight:700; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--white); margin-bottom:10px;
+}
+.risk-card p { font-size:14px; font-weight:300; color:rgba(255,255,255,.90); line-height:1.55; }
+
+/* ===================================================
+   SECAO 4 — SERVICOS
+=================================================== */
+#servicos .inner {
+  max-width:1440px; margin:0 auto; padding:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; width:100%;
+}
+#servicos .serv-desc {
+  font-size:16px; font-weight:300; line-height:1.75; color:var(--navy); margin-top:20px; max-width:440px;
+}
+.serv-block { margin-bottom:36px; }
+.serv-pill {
+  display:inline-block; background:var(--green); color:var(--white);
+  font-size:12px; font-weight:700; letter-spacing:.13em;
+  text-transform:uppercase; padding:12px 28px; border-radius:50px; margin-bottom:14px;
+}
+.serv-list { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.serv-list li {
+  font-size:15px; font-weight:400; color:var(--navy);
+  padding-left:20px; position:relative; line-height:1.5;
+}
+.serv-list li::before {
+  content:'•'; position:absolute; left:0; color:var(--green); font-size:18px; line-height:1.3;
+}
+
+/* ===================================================
+   SECOES 5-7 — PLANOS
+=================================================== */
+.plan-sec { min-height:100vh; background:var(--bg); }
+.plan-sec.featured { background:var(--green); }
+
+.plan-sec .inner {
+  max-width:1440px; margin:0 auto; padding:60px 80px;
+  display:grid; grid-template-columns:400px 1fr; gap:72px; align-items:center; width:100%;
+  min-height:calc(100vh - 60px);
+}
+
+/* lado esquerdo de cada plano */
+.pl-label { color:var(--gray); }
+.plan-sec.featured .pl-label { color:rgba(255,255,255,.55); }
+.pl-title {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(52px,4.5vw,72px); font-weight:900;
+  text-transform:uppercase; line-height:.92; color:var(--navy); margin-bottom:20px;
+}
+.pl-title em { color:var(--green); font-style:normal; display:block; }
+.plan-sec.featured .pl-title { color:var(--white); }
+.plan-sec.featured .pl-title em { color:rgba(255,255,255,.80); }
+.pl-desc {
+  font-size:16px; font-weight:300; line-height:1.7; color:var(--navy); margin-bottom:32px;
+}
+.plan-sec.featured .pl-desc { color:rgba(255,255,255,.80); }
+.pl-badge {
+  display:inline-block; background:var(--navy); color:var(--white);
+  font-size:11px; font-weight:700; letter-spacing:.14em;
+  padding:9px 22px; border-radius:50px; text-transform:uppercase; margin-bottom:32px;
+}
+.plan-sec.featured .pl-badge { background:rgba(255,255,255,.22); }
+.pl-badge.navy { background:var(--navy); }
+
+/* indicadores */
+.pl-dots { display:flex; gap:10px; align-items:center; }
+.pd { height:5px; border-radius:3px; background:var(--line); width:32px; display:block; }
+.pd.on { background:var(--green); width:52px; }
+.plan-sec.featured .pd { background:rgba(255,255,255,.30); }
+.plan-sec.featured .pd.on { background:var(--white); width:52px; }
+
+/* card do plano */
+.plan-card {
+  background:var(--white); border-radius:28px; overflow:hidden;
+  box-shadow:0 12px 48px rgba(27,42,74,.10);
+}
+.plan-card.dk { background:var(--navy); }
+.plan-sec.featured .plan-card { box-shadow:0 20px 64px rgba(0,0,0,.22); }
+
+.plan-card .pc-head { padding:36px 44px 28px; border-bottom:1px solid rgba(0,0,0,.07); }
+.plan-card.dk .pc-head { border-bottom:1px solid rgba(255,255,255,.10); }
+
+.pc-tag {
+  display:inline-block; font-size:10px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; padding:6px 14px; border-radius:50px;
+  background:rgba(27,42,74,.07); color:var(--navy); margin-bottom:16px;
+}
+.plan-card.dk .pc-tag { background:rgba(255,255,255,.10); color:rgba(255,255,255,.75); }
+
+.pc-name {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:52px; font-weight:900; text-transform:uppercase;
+  color:var(--navy); line-height:1; margin-bottom:16px;
+}
+.plan-card.dk .pc-name { color:var(--white); }
+
+.pc-price { font-size:12px; font-weight:600; color:var(--gray); letter-spacing:.06em; text-transform:uppercase; }
+.plan-card.dk .pc-price { color:rgba(255,255,255,.55); }
+.pc-price strong {
+  display:block; font-size:42px; font-weight:900; color:var(--navy);
+  line-height:1.1; letter-spacing:-.02em; margin-top:4px;
+}
+.plan-card.dk .pc-price strong { color:var(--white); }
+.pc-price strong span { font-size:18px; font-weight:400; }
+
+.plan-card .pc-body {
+  padding:28px 44px 36px; display:grid; grid-template-columns:1fr 1fr; gap:32px;
+}
+.pc-items { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.pc-items li {
+  font-size:14px; font-weight:400; color:var(--navy);
+  padding-left:22px; position:relative; line-height:1.45;
+}
+.plan-card.dk .pc-items li { color:rgba(255,255,255,.90); }
+.pc-items li::before {
+  content:'✓'; position:absolute; left:0;
+  color:var(--green); font-weight:700; font-size:13px;
+}
+.plan-card.dk .pc-items li::before { color:rgba(255,255,255,.65); }
+
+.pc-right { display:flex; flex-direction:column; gap:20px; }
+
+.pc-ben-title {
+  font-size:10px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--gray); margin-bottom:10px;
+}
+.plan-card.dk .pc-ben-title { color:rgba(255,255,255,.45); }
+.pc-ben-list { display:flex; flex-direction:column; gap:7px; }
+.pc-ben-list span { font-size:13px; font-weight:500; color:var(--navy); }
+.plan-card.dk .pc-ben-list span { color:rgba(255,255,255,.90); }
+
+.pc-for-title {
+  font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gray); margin-bottom:10px; padding-top:16px;
+  border-top:1px solid rgba(0,0,0,.06);
+}
+.plan-card.dk .pc-for-title { color:rgba(255,255,255,.45); border-top:1px solid rgba(255,255,255,.08); }
+.pc-for-list { font-size:13px; font-weight:400; color:var(--navy); line-height:1.65; }
+.plan-card.dk .pc-for-list { color:rgba(255,255,255,.85); }
+
+/* ===================================================
+   SECAO 8 — DIFERENCIAIS + SLA
+=================================================== */
+#diferenciais .inner {
+  max-width:1440px; margin:0 auto; padding:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; width:100%;
+}
+.sla-table {
+  width:100%; border-collapse:separate; border-spacing:0 12px; margin-top:28px;
+}
+.sla-table thead th {
+  font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gray); padding:0 24px 8px; text-align:left;
+}
+.sla-table tbody td {
+  padding:20px 24px; background:var(--white);
+  font-size:16px; font-weight:600; color:var(--navy);
+}
+.sla-table tbody td:first-child {
+  border-radius:14px 0 0 14px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:26px; font-weight:900; text-transform:uppercase;
+}
+.sla-table tbody td:last-child { border-radius:0 14px 14px 0; text-align:right; }
+.sla-table tbody tr.hl td { background:var(--green); color:var(--white); }
+
+.dif-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px;
+}
+.dif-card {
+  background:var(--white); border-radius:18px; padding:20px;
+  display:flex; gap:14px; align-items:flex-start;
+  box-shadow:0 4px 16px rgba(27,42,74,.06); transition:transform .2s;
+}
+.dif-card:hover { transform:translateY(-3px); }
+.dif-ico {
+  width:44px; height:44px; background:var(--green); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+}
+.dif-text h4 { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.dif-text p { font-size:12px; font-weight:300; color:var(--gray); line-height:1.45; }
+
+/* ===================================================
+   SECAO 9 — TECNOLOGIA
+=================================================== */
+#tecnologia .inner {
+  max-width:1440px; margin:0 auto; padding:80px; width:100%;
+}
+#tecnologia .tech-top {
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-bottom:52px; align-items:end;
+}
+#tecnologia .tech-top p { font-size:17px; font-weight:300; line-height:1.75; color:var(--navy); }
+.tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.tech-card {
+  background:var(--navy); border-radius:20px; padding:32px 28px;
+  transition:transform .2s;
+}
+.tech-card:hover { transform:translateY(-4px); }
+.tech-card.accent { background:var(--green); }
+.tech-card .ti { font-size:30px; margin-bottom:16px; display:block; }
+.tech-card h4 {
+  font-size:13px; font-weight:700; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--white); margin-bottom:8px;
+}
+.tech-card p { font-size:13px; font-weight:300; color:rgba(255,255,255,.82); line-height:1.55; }
+
+/* ===================================================
+   SECAO 10 — OFERTA
+=================================================== */
+#oferta { background:var(--navy); }
+#oferta .inner {
+  max-width:1440px; margin:0 auto; padding:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; width:100%;
+  min-height:calc(100vh - 60px);
+}
+#oferta .insight {
+  font-size:18px; font-weight:300; color:rgba(255,255,255,.75); line-height:1.75; margin-bottom:36px; max-width:480px;
+}
+#oferta .insight strong { color:var(--white); font-weight:700; }
+.oferta-stack { display:flex; flex-direction:column; gap:24px; }
+.oferta-card {
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13);
+  border-radius:22px; padding:36px; text-align:center; transition:background .2s;
+}
+.oferta-card:hover { background:rgba(255,255,255,.11); }
+.oferta-card.hl { background:var(--green); border-color:var(--green); }
+.oferta-card .oc-lbl {
+  font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.50); margin-bottom:12px;
+}
+.oferta-card.hl .oc-lbl { color:rgba(255,255,255,.70); }
+.oferta-card .oc-val {
+  font-family:'Barlow Condensed',sans-serif; font-size:40px; font-weight:900;
+  color:var(--white); text-transform:uppercase; line-height:1.1;
+}
+.oferta-card .oc-sub { font-size:14px; font-weight:300; color:rgba(255,255,255,.55); margin-top:6px; }
+.oferta-sep {
+  text-align:center; font-size:12px; font-weight:700;
+  letter-spacing:.2em; color:rgba(255,255,255,.30); text-transform:uppercase;
+}
+
+/* ===================================================
+   SECAO 11 — CONTATO
+=================================================== */
+#contato .inner {
+  max-width:1440px; margin:0 auto; padding:80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; width:100%;
+  min-height:calc(100vh - 60px);
+}
+.contact-block {
+  margin-top:40px; background:var(--green); border-radius:24px;
+  padding:36px 40px; display:flex; flex-direction:column; gap:20px; width:fit-content;
+}
+.ct-item { display:flex; align-items:center; gap:16px; }
+.ct-ico {
+  width:42px; height:42px; border-radius:50%;
+  border:2px solid rgba(255,255,255,.40);
+  display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;
+}
+.ct-item span { font-size:17px; font-weight:600; color:var(--white); }
+.logo-card {
+  background:var(--green); border-radius:28px; padding:64px 48px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:16px;
+}
+.logo-card .lkv {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:110px; font-weight:900; color:var(--white); line-height:1;
+}
+.logo-card .lkn { font-size:20px; font-weight:800; letter-spacing:.18em; color:var(--white); text-transform:uppercase; }
+.logo-card .lkt { font-size:14px; font-weight:300; color:rgba(255,255,255,.80); letter-spacing:.05em; }
+
+/* ===================================================
+   RESPONSIVO
+=================================================== */
+@media (max-width:1100px) {
+  .navbar { padding:0 32px; }
+  #capa .inner, #quem-somos .inner, #problema .inner,
+  #servicos .inner, .plan-sec .inner, #diferenciais .inner,
+  #tecnologia .tech-top, #oferta .inner, #contato .inner {
+    padding:60px 40px; gap:48px; grid-template-columns:1fr;
+  }
+  .logo-circle { width:240px; height:240px; justify-self:center; }
+  .logo-circle .lv { font-size:80px; }
+  .plan-card .pc-body { grid-template-columns:1fr; }
+  .tech-grid { grid-template-columns:1fr 1fr; }
+  .risk-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:700px) {
+  .navbar nav { display:none; }
+  .tech-grid, .risk-grid, .dif-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <a href="#capa" class="logo">VIVA <span>G</span>ERADORES</a>
+  <nav>
+    <a href="#quem-somos">A Empresa</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#plano-essential">Planos</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#tecnologia">Tecnologia</a>
+    <a href="#contato" class="nav-cta">Contato</a>
+  </nav>
+</header>
+
+
+<!-- ===================================================
+     SEÇÃO 1 — CAPA
+     ✏️ Edite: título, subtítulo, texto do botão
+=================================================== -->
+<section id="capa">
+  <div class="inner">
+    <div>
+      <div class="pill">VIVA GERADORES — 2025</div>
+      <h1>PLANOS DE<br><em>MANUTENÇÃO</em></h1>
+      <p class="subtitle">
+        Garantia de energia, segurança operacional e redução de paradas inesperadas para o seu negócio.
+      </p>
+      <div class="cta-row">
+        <a href="#contato" class="btn-green">SOLICITE UMA AVALIAÇÃO</a>
+        <p class="cta-tag">Descubra o plano ideal para a sua operação.</p>
+      </div>
+    </div>
+    <div class="logo-circle">
+      <div class="lv">V<span>I</span>VA</div>
+      <div class="ln">GERADORES</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 2 — QUEM SOMOS
+     ✏️ Edite: texto institucional, missão, visão, valores
+=================================================== -->
+<section id="quem-somos">
+  <div class="inner">
+    <div>
+      <div class="sec-label">Apresentação institucional</div>
+      <h2 class="sec-title">QUEM<br><em>SOMOS?</em></h2>
+      <p class="qs-text">
+        Somos uma empresa especializada em soluções completas para geradores, oferecendo serviços de alta qualidade que garantem segurança, eficiência e confiabilidade para indústrias, hospitais, empresas e residências.
+      </p>
+      <p class="qs-text">
+        Com uma equipe altamente capacitada e anos de experiência no mercado, entregamos muito mais do que serviços técnicos: entregamos tranquilidade, confiança e energia sem interrupções.
+      </p>
+    </div>
+    <div class="mvv-grid">
+      <div class="mvv-card">
+        <div class="mvv-tag">Missão</div>
+        <p>Garantir energia contínua e confiável, oferecendo serviços de excelência em geradores.</p>
+      </div>
+      <div class="mvv-card">
+        <div class="mvv-tag">Visão</div>
+        <p>Ser referência nacional em soluções de energia com geradores, reconhecida pela qualidade, inovação e compromisso com os clientes.</p>
+      </div>
+      <div class="mvv-card">
+        <div class="mvv-tag">Valores</div>
+        <ul>
+          <li>Compromisso com a qualidade</li>
+          <li>Transparência e ética</li>
+          <li>Inovação tecnológica</li>
+          <li>Atendimento personalizado</li>
+          <li>Sustentabilidade</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 3 — O PROBLEMA
+     ✏️ Edite: texto principal e os 4 cards de risco
+=================================================== -->
+<section id="problema">
+  <div class="inner">
+    <div>
+      <div class="sec-label">Por que manter seu gerador</div>
+      <h2 class="sec-title" style="color:var(--green);">
+        <small style="display:block;font-size:.52em;color:var(--navy);margin-bottom:4px;">O RISCO DE</small>
+        NÃO MANTER<br>SEU GERADOR
+      </h2>
+      <p class="prob-text">
+        Geradores sem manutenção regular são uma ameaça silenciosa à continuidade operacional. Quando você mais precisa de energia, o equipamento falha — e o prejuízo vai muito além do reparo.
+      </p>
+    </div>
+    <div class="risk-grid">
+      <div class="risk-card green">
+        <div class="ri">⚡</div>
+        <h4>Falhas Inesperadas</h4>
+        <p>Paradas não programadas comprometem toda a operação no momento crítico.</p>
+      </div>
+      <div class="risk-card">
+        <div class="ri">💸</div>
+        <h4>Prejuízo Financeiro</h4>
+        <p>Reparos emergenciais custam até 5x mais do que a manutenção preventiva.</p>
+      </div>
+      <div class="risk-card">
+        <div class="ri">⏱</div>
+        <h4>Perda de Produtividade</h4>
+        <p>Interrupções energéticas paralisam equipes e processos inteiros.</p>
+      </div>
+      <div class="risk-card">
+        <div class="ri">🔒</div>
+        <h4>Riscos à Segurança</h4>
+        <p>Equipamentos degradados representam risco real para pessoas e instalações.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 4 — SERVIÇOS
+     ✏️ Edite: descrição e itens de cada serviço
+=================================================== -->
+<section id="servicos">
+  <div class="inner">
+    <div>
+      <div class="sec-label">O que fazemos</div>
+      <h2 class="sec-title">NOSSOS<br><em>SERVIÇOS</em></h2>
+      <p class="serv-desc">Atuamos em todas as frentes para garantir que o seu gerador opere com máxima eficiência e confiabilidade, do diagnóstico à solução.</p>
+    </div>
+    <div>
+      <div class="serv-block">
+        <div class="serv-pill">Manutenção Preventiva</div>
+        <ul class="serv-list">
+          <li>Inspeções programadas e check-up completo</li>
+          <li>Testes operacionais e verificação de bateria</li>
+          <li>Verificação do sistema de arrefecimento</li>
+          <li>Troca programada de filtros e óleo</li>
+          <li>Relatórios técnicos completos com fotos</li>
+        </ul>
+      </div>
+      <div class="serv-block">
+        <div class="serv-pill">Manutenção Corretiva</div>
+        <ul class="serv-list">
+          <li>Atendimento emergencial com SLA definido</li>
+          <li>Diagnóstico preciso de falhas e anomalias</li>
+          <li>Reparos técnicos com retorno rápido à operação</li>
+          <li>ART/CRT para regularização junto ao Corpo de Bombeiros</li>
+        </ul>
+      </div>
+      <div class="serv-block">
+        <div class="serv-pill">Outros Serviços</div>
+        <ul class="serv-list">
+          <li>Instalação completa de geradores industriais</li>
+          <li>Isolamento acústico de salas de máquinas</li>
+          <li>Sistema de escapamento para geradores</li>
+          <li>Lavagem e análise de tanques diesel</li>
+          <li>Venda de geradores novos e seminovos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 5 — PLANO ESSENTIAL
+     ✏️ Edite: preço, itens incluídos, benefícios, indicado para
+=================================================== -->
+<section class="plan-sec" id="plano-essential">
+  <div class="inner">
+    <div>
+      <div class="sec-label pl-label">Planos de manutenção — 1 de 3</div>
+      <h2 class="pl-title">PLANOS DE<br><em>MANUTENÇÃO</em></h2>
+      <p class="pl-desc">Contratos flexíveis para cada porte de operação. Quanto mais proteção, menor o risco e maior a economia a longo prazo.</p>
+      <div class="pl-dots">
+        <span class="pd on"></span><span class="pd"></span><span class="pd"></span>
+      </div>
+    </div>
+    <div class="plan-card">
+      <div class="pc-head">
+        <div class="pc-tag">Essencial</div>
+        <div class="pc-name">Essential</div>
+        <div class="pc-price">A partir de <strong>R$ 590 <span>/mês</span></strong></div>
+      </div>
+      <div class="pc-body">
+        <ul class="pc-items">
+          <li>1 visita preventiva mensal</li>
+          <li>Check-up completo do equipamento</li>
+          <li>Teste operacional do gerador</li>
+          <li>Verificação de bateria e óleo</li>
+          <li>Verificação do sistema de arrefecimento</li>
+          <li>Limpeza básica do equipamento</li>
+          <li>Relatório técnico simplificado</li>
+          <li>Desconto em peças e serviços corretivos</li>
+        </ul>
+        <div class="pc-right">
+          <div>
+            <div class="pc-ben-title">Benefícios</div>
+            <div class="pc-ben-list">
+              <span>✔ Redução de falhas inesperadas</span>
+              <span>✔ Maior vida útil do gerador</span>
+              <span>✔ Menor custo com manutenção corretiva</span>
+              <span>✔ Mais segurança em quedas de energia</span>
+            </div>
+          </div>
+          <div>
+            <div class="pc-for-title">Indicado para</div>
+            <div class="pc-for-list">Pequenos comércios · Condomínios · Fazendas · Clínicas pequenas · Escritórios</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 6 — PLANO PERFORMANCE (fundo verde)
+     ✏️ Edite: preço, itens incluídos, benefícios, indicado para
+=================================================== -->
+<section class="plan-sec featured" id="plano-performance">
+  <div class="inner">
+    <div>
+      <div class="sec-label pl-label">Planos de manutenção — 2 de 3</div>
+      <h2 class="pl-title">PLANOS DE<br><em>MANUTENÇÃO</em></h2>
+      <p class="pl-desc">Nosso plano mais recomendado. Ideal para quem precisa de maior frequência e controle total sobre a operação do equipamento.</p>
+      <div class="pl-badge">⭐ MAIS CONTRATADO</div>
+      <div class="pl-dots">
+        <span class="pd"></span><span class="pd on"></span><span class="pd"></span>
+      </div>
+    </div>
+    <div class="plan-card">
+      <div class="pc-head">
+        <div class="pc-tag">⭐ Mais Contratado</div>
+        <div class="pc-name">Performance</div>
+        <div class="pc-price">A partir de <strong>R$ 990 <span>/mês</span></strong></div>
+      </div>
+      <div class="pc-body">
+        <ul class="pc-items">
+          <li>Tudo do Plano Essential</li>
+          <li>Até 2 visitas emergenciais/mês</li>
+          <li>Atendimento prioritário</li>
+          <li>Troca programada de filtros</li>
+          <li>Controle de horas do motor</li>
+          <li>Testes operacionais avançados</li>
+          <li>Relatórios técnicos detalhados</li>
+          <li>Alertas preventivos de manutenção</li>
+          <li>Suporte emergencial</li>
+          <li>ART/CRT para Corpo de Bombeiros</li>
+        </ul>
+        <div class="pc-right">
+          <div>
+            <div class="pc-ben-title">Benefícios</div>
+            <div class="pc-ben-list">
+              <span>✔ Atendimento mais rápido</span>
+              <span>✔ Menor risco de parada operacional</span>
+              <span>✔ Planejamento preventivo reduz custos futuros</span>
+              <span>✔ Maior confiabilidade em emergências</span>
+            </div>
+          </div>
+          <div>
+            <div class="pc-for-title">Indicado para</div>
+            <div class="pc-for-list">Empresas médias · Mercados · Telecom · Condomínios grandes · Pequenas indústrias</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 7 — PLANO ELITE
+     ✏️ Edite: preço, itens incluídos, benefícios, indicado para
+=================================================== -->
+<section class="plan-sec" id="plano-elite">
+  <div class="inner">
+    <div>
+      <div class="sec-label pl-label">Planos de manutenção — 3 de 3</div>
+      <h2 class="pl-title">PLANOS DE<br><em>MANUTENÇÃO</em></h2>
+      <p class="pl-desc">A solução mais completa para operações críticas que não podem parar. Gestão total, monitoramento contínuo e resposta imediata.</p>
+      <div class="pl-badge navy">💎 SOLUÇÃO PREMIUM</div>
+      <div class="pl-dots">
+        <span class="pd"></span><span class="pd"></span><span class="pd on"></span>
+      </div>
+    </div>
+    <div class="plan-card dk">
+      <div class="pc-head">
+        <div class="pc-tag">💎 Solução Premium</div>
+        <div class="pc-name">Elite</div>
+        <div class="pc-price">A partir de <strong>R$ 2.500 <span>/mês</span></strong></div>
+      </div>
+      <div class="pc-body">
+        <ul class="pc-items">
+          <li>Tudo do Plano Performance</li>
+          <li>Atendimento 24 horas / SLA prioritário</li>
+          <li>Monitoramento remoto contínuo</li>
+          <li>Visitas emergenciais ilimitadas</li>
+          <li>Gestão completa do equipamento</li>
+          <li>Testes sob carga programados</li>
+          <li>Relatórios premium com histórico digital</li>
+          <li>Consultoria operacional dedicada</li>
+        </ul>
+        <div class="pc-right">
+          <div>
+            <div class="pc-ben-title">Benefícios</div>
+            <div class="pc-ben-list">
+              <span>✔ Máxima segurança operacional</span>
+              <span>✔ Resposta imediata em emergências</span>
+              <span>✔ Redução extrema de riscos</span>
+              <span>✔ Total tranquilidade para sua empresa</span>
+            </div>
+          </div>
+          <div>
+            <div class="pc-for-title">Indicado para</div>
+            <div class="pc-for-list">Hospitais · Hotéis · Indústrias · Data Centers · Grandes empresas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 8 — SLA + DIFERENCIAIS
+     ✏️ Edite: prazos da tabela e os 6 cards de diferencial
+=================================================== -->
+<section id="diferenciais">
+  <div class="inner">
+    <div>
+      <div class="sec-label">Tempo de resposta garantido</div>
+      <h2 class="sec-title">SLA DE<br><em>ATENDIMENTO</em></h2>
+      <p style="font-size:15px;font-weight:300;line-height:1.7;color:var(--navy);max-width:420px;margin-top:16px;">
+        Cada plano possui prazo garantido em contrato. Em emergências energéticas, cada minuto conta.
+      </p>
+      <table class="sla-table">
+        <thead>
+          <tr><th>Plano</th><th>Prazo de Atendimento</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Essential</td><td>Até 72 horas</td></tr>
+          <tr class="hl"><td>Performance</td><td>Até 24 horas</td></tr>
+          <tr><td>Elite</td><td>Até 8 horas</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="sec-label">Por que a Viva Geradores</div>
+      <h2 class="sec-title">NOSSOS<br><em>DIFERENCIAIS</em></h2>
+      <div class="dif-grid">
+        <div class="dif-card">
+          <div class="dif-ico">⚙️</div>
+          <div class="dif-text"><h4>Equipe Especializada</h4><p>Profissionais capacitados em manutenção de grupos geradores diesel.</p></div>
+        </div>
+        <div class="dif-card">
+          <div class="dif-ico">🚀</div>
+          <div class="dif-text"><h4>Atendimento Prioritário</h4><p>Agilidade no suporte técnico com SLA garantido em contrato.</p></div>
+        </div>
+        <div class="dif-card">
+          <div class="dif-ico">📊</div>
+          <div class="dif-text"><h4>Relatórios Técnicos</h4><p>Documentação completa de todas as intervenções com fotos.</p></div>
+        </div>
+        <div class="dif-card">
+          <div class="dif-ico">🔍</div>
+          <div class="dif-text"><h4>Monitoramento Preventivo</h4><p>Identificação antecipada de falhas antes que virem problema.</p></div>
+        </div>
+        <div class="dif-card">
+          <div class="dif-ico">📱</div>
+          <div class="dif-text"><h4>Histórico Digital</h4><p>Histórico completo do equipamento via QR Code e portal do cliente.</p></div>
+        </div>
+        <div class="dif-card">
+          <div class="dif-ico">🏭</div>
+          <div class="dif-text"><h4>Gestão Operacional</h4><p>Planejamento completo do ciclo de vida do seu gerador.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 9 — TECNOLOGIA
+     ✏️ Edite: texto introdutório e os 6 cards de tecnologia
+=================================================== -->
+<section id="tecnologia">
+  <div class="inner">
+    <div class="tech-top">
+      <div>
+        <div class="sec-label">Inovação a serviço do seu gerador</div>
+        <h2 class="sec-title">SOLUÇÕES<br><em>TECNOLÓGICAS</em></h2>
+      </div>
+      <p>Recursos digitais que elevam o padrão do serviço e aproximam sua empresa das soluções utilizadas por grandes players do setor energético.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card accent">
+        <span class="ti">📡</span>
+        <h4>Monitoramento Remoto</h4>
+        <p>Acompanhe tensão, frequência, temperatura, partida, falhas e combustível em tempo real.</p>
+      </div>
+      <div class="tech-card">
+        <span class="ti">📷</span>
+        <h4>Relatório com Fotos</h4>
+        <p>Cada visita documentada com registros fotográficos para total transparência.</p>
+      </div>
+      <div class="tech-card">
+        <span class="ti">📲</span>
+        <h4>QR Code no Gerador</h4>
+        <p>Escaneie e acesse histórico completo, próximas manutenções e contatos de emergência.</p>
+      </div>
+      <div class="tech-card">
+        <span class="ti">🖥️</span>
+        <h4>Portal do Cliente</h4>
+        <p>Chamados, histórico de visitas, relatórios e vencimentos em um só lugar.</p>
+      </div>
+      <div class="tech-card">
+        <span class="ti">🔄</span>
+        <h4>Teste Automático Mensal</h4>
+        <p>Gerador programado para ligar, testar e enviar alerta de funcionamento automaticamente.</p>
+      </div>
+      <div class="tech-card accent">
+        <span class="ti">⛽</span>
+        <h4>Gestão de Combustível</h4>
+        <p>Inspeção de diesel, análise de contaminação, limpeza de tanque e controle de autonomia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 10 — OFERTA ESPECIAL
+     ✏️ Edite: texto persuasivo e as duas opções de oferta
+=================================================== -->
+<section id="oferta">
+  <div class="inner">
+    <div>
+      <div class="sec-label" style="color:rgba(255,255,255,.45);">Contrato anual</div>
+      <h2 class="sec-title" style="color:var(--white);">CONDIÇÕES<br><em style="color:var(--green);">ESPECIAIS</em></h2>
+      <p class="insight">
+        O custo de uma falha energética é <strong>muito maior</strong> do que o investimento em manutenção preventiva. Ao fechar um contrato anual, você garante benefícios exclusivos.
+      </p>
+      <a href="#contato" class="btn-green">SOLICITE AVALIAÇÃO TÉCNICA GRATUITA</a>
+    </div>
+    <div class="oferta-stack">
+      <div class="oferta-card hl">
+        <div class="oc-lbl">Opção 1 — Contrato Anual</div>
+        <div class="oc-val">1 MÊS GRÁTIS</div>
+      </div>
+      <div class="oferta-sep">— ou —</div>
+      <div class="oferta-card">
+        <div class="oc-lbl">Opção 2 — Contrato Anual</div>
+        <div class="oc-val">TROCA DE ÓLEO<br>E FILTROS GRÁTIS</div>
+        <div class="oc-sub">com material incluso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SEÇÃO 11 — CONTATO
+     ✏️ Edite: telefone, email e site
+=================================================== -->
+<section id="contato">
+  <div class="inner">
+    <div>
+      <div class="pill">VIVA GERADORES</div>
+      <h2 class="sec-title">VAMOS<br>TRABALHAR<br>JUNTOS?</h2>
+      <div class="contact-block">
+        <div class="ct-item">
+          <div class="ct-ico">📞</div>
+          <span>(71) 98148-9713</span>
+        </div>
+        <div class="ct-item">
+          <div class="ct-ico">✉️</div>
+          <span>contato@vivageradores.com.br</span>
+        </div>
+        <div class="ct-item">
+          <div class="ct-ico">🌐</div>
+          <span>vivageradores.com.br</span>
+        </div>
+      </div>
+    </div>
+    <div class="logo-card">
+      <div class="lkv">V</div>
+      <div class="lkn">VIVA GERADORES</div>
+      <div class="lkt">Energia Segura e Confiável para o Seu Negócio</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SCROLLSPY -->
+<script>
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.navbar nav a');
+  const map = {
+    'capa':'capa','quem-somos':'quem-somos','problema':'problema',
+    'servicos':'servicos',
+    'plano-essential':'plano-essential','plano-performance':'plano-essential','plano-elite':'plano-essential',
+    'diferenciais':'diferenciais','tecnologia':'tecnologia','oferta':'oferta','contato':'contato'
+  };
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const id = e.target.id;
+      links.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + (map[id] || id)) a.classList.add('active');
+      });
+    });
+  }, { threshold: 0.45 }).observe || secs.forEach(s => {
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        links.forEach(a => {
+          a.classList.remove('active');
+          if (a.getAttribute('href') === '#' + (map[e.target.id] || e.target.id)) a.classList.add('active');
+        });
+      });
+    }, { threshold: 0.45 }).observe(s);
+  });
+  // simpler fallback
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(a => a.classList.remove('active'));
+      const target = map[e.target.id] || e.target.id;
+      const link = document.querySelector('.navbar nav a[href="#' + target + '"]');
+      if (link) link.classList.add('active');
+    });
+  }, { threshold: 0.45 });
+  secs.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
